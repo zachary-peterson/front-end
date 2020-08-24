@@ -3,8 +3,6 @@ import { Link, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
 
-import regStuFormSchema from './RegStuFormSchema';
-
 const initialFormValues = {
     email: '',
     username: '', 
@@ -13,7 +11,7 @@ const initialFormValues = {
     password: '',
 }
 
-const initialFormErros = {
+const initialFormErrors = {
     email: '',
     username: '',
     first_name: '',
@@ -27,6 +25,28 @@ export default function RegisterStudent() {
     const [formValues, setFormValues] = useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [disabled, setDisabled] = useState(initialDisabled)
+
+    const regStuFormSchema = yup.object().shape({
+        email: yup
+            .email()
+            .required('Email is Required'),
+        username: yup
+            .string()
+            .required('Username is Required')
+            .length(3, "Must be at least three characters"),
+        first_name: yup
+            .string()
+            .required('First Name is Required')
+            .length(3, "Must be at least three characters"),
+        last_name: yup
+            .string()
+            .required('Last Name is Required')
+            .length(3, "Must be at least three characters"),
+        password: yup
+            .string()
+            .required('Password is Required')
+            .length(8, "Must be at least eight characters")
+    })
     
     const inputChange = (name, value) => {
         yup
@@ -65,7 +85,6 @@ export default function RegisterStudent() {
         evt.preventDefault()
         submit()
     }
-    
     
     const onInputChange = evt => {
         const { name, value } = evt.target
