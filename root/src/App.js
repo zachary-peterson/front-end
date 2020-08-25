@@ -5,6 +5,7 @@ import PrivateRoute from './components/PrivateRoute'
 import Login from './components/Login';
 import RegisterStudent from './components/RegisterStudent'
 import { AdminView } from './components/AdminView';
+import { LandingPage } from './components/LandingPage'
 
 import './App.css';
 
@@ -14,8 +15,7 @@ function App() {
     <NavBar />
       <Switch>
         <PrivateRoute path='/dashboard' component={AdminView} />
-        <Route path='/login' component={Login} />
-        <Route exact path='/' component={RegisterStudent}/>
+        <Route path='/' component={LandingPage} />
       </Switch>
     </>
   );
