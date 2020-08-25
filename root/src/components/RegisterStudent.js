@@ -6,9 +6,10 @@ import * as yup from 'yup';
 const initialFormValues = {
     email: '',
     username: '', 
-    first_name: '',
-    last_name: '',
+    // first_name: '',
+    // last_name: '',
     password: '',
+    role: ''
 }
 
 const initialFormErrors = {
@@ -17,6 +18,7 @@ const initialFormErrors = {
     first_name: '',
     last_name: '', 
     password: '',
+    role: ''
 }
 
 const initialDisabled = true
@@ -28,24 +30,27 @@ export default function RegisterStudent() {
 
     const regStuFormSchema = yup.object().shape({
         email: yup
-            .email()
+            .string()
             .required('Email is Required'),
         username: yup
             .string()
             .required('Username is Required')
             .length(3, "Must be at least three characters"),
-        first_name: yup
-            .string()
-            .required('First Name is Required')
-            .length(3, "Must be at least three characters"),
-        last_name: yup
-            .string()
-            .required('Last Name is Required')
-            .length(3, "Must be at least three characters"),
+        // first_name: yup
+        //     .string()
+        //     .required('First Name is Required')
+        //     .length(3, "Must be at least three characters"),
+        // last_name: yup
+        //     .string()
+        //     .required('Last Name is Required')
+        //     .length(3, "Must be at least three characters"),
         password: yup
             .string()
             .required('Password is Required')
-            .length(8, "Must be at least eight characters")
+            .length(8, "Must be at least eight characters"),
+        role: yup
+            .string()
+            .oneOf(['admin', 'medium', 'large', 'sheet'], 'Size selection required'),
     })
     
     const inputChange = (name, value) => {
@@ -75,10 +80,18 @@ export default function RegisterStudent() {
         const newStudent = {
             email: formValues.email.trim(),
             username: formValues.username.trim(),
-            first_name: formValues.first_name.trim(),
-            last_name: formValues.last_name.trim(),
+            // first_name: formValues.first_name.trim(),
+            // last_name: formValues.last_name.trim(),
             password: formValues.password,
+            role: formValues.role
         }
+        axios.post('http://bwschoolinthecloud.herokuapp.com/api/auth/register', formValues)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.dir(err)
+        })
     }
 
     const onSubmit = evt => {
@@ -108,48 +121,62 @@ export default function RegisterStudent() {
                 <div className='form-group inputs'>
                     <label>Email:&nbsp;
                         <input
-                        value={values.name}
+                        value={formValues.email}
                         onChange={onInputChange}
                         name='email'
                         type='email'/>
                     </label>
-                    <div id="name_error">{errors.email}</div>
+                    <div id="name_error">{formErrors.email}</div>
 
                     <label>Username:&nbsp;
                         <input
-                        value={values.username}
+                        value={formValues.username}
                         onChange={onInputChange}
                         name='username'
                         type='text'/>
                     </label>
-                    <div id="name_error">{errors.username}</div>
+                    <div id="name_error">{formErrors.username}</div>
 
-                    <label>First Name:&nbsp;
+                    {/* <label>First Name:&nbsp;
                         <input
-                        value={values.first_name}
+                        value={formValues.first_name}
                         onChange={onInputChange}
                         name='first_name'
                         type='text'/>
                     </label>
-                    <div id="name_error">{errors.first_name}</div>
+                    <div id="name_error">{formErrors.first_name}</div>
 
                     <label>Last Name:&nbsp;
                         <input
-                        value={values.last_name}
+                        value={formValues.last_name}
                         onChange={onInputChange}
                         name='last_name'
                         type='text'/>
                     </label>
-                    <div id="name_error">{errors.last_name}</div>
+                    <div id="name_error">{formErrors.last_name}</div> */}
 
                     <label>Password:&nbsp;
                         <input
-                        value={values.password}
+                        value={formValues.password}
                         onChange={onInputChange}
                         name='password'
                         type='password'/>
                     </label>
-                    <div id="name_error">{errors.password}</div>
+                    <div id="name_error">{formErrors.password}</div>
+
+                    <label>Role
+                    <select
+                        onChange={onInputChange}
+                        value={formValues.role}
+                        name='role'
+                    >
+                        <option value=''>- Select -</option>
+                        <option value='admin'>Admin</option>
+                        <option value='medium'>Medium</option>
+                        <option value='large'>Large</option>
+                    </select>
+                    </label>
+                    
     
                     <button id="submit" disabled={disabled}>Join</button>
                 </div>    
@@ -157,4 +184,3 @@ export default function RegisterStudent() {
         </form>
     )
 }    
-

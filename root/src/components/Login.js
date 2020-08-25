@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const loginInitialFormValues = {
     username: '', 
@@ -59,6 +60,14 @@ export default function Login() {
             username: formValues.username.trim(),
             password: formValues.password,
         }
+        console.log(user)
+        axios.post('http://bwschoolinthecloud.herokuapp.com/api/auth/login', user)
+        .then(res => {
+            console.dir(res);
+        })
+        .catch(err => {
+            console.dir(err)
+        })
     }
 
     const onSubmit = evt => {
@@ -68,7 +77,7 @@ export default function Login() {
     
     const onInputChange = evt => {
         const { name, value } = evt.target
-        inputChange(name, value)
+        loginInputChange(name, value)
     }
 
     useEffect(() => {
@@ -89,26 +98,25 @@ export default function Login() {
 
                     <label>Username:&nbsp;
                         <input
-                        value={values.username}
+                        value={formValues.username}
                         onChange={onInputChange}
                         name='username'
                         type='text'/>
                     </label>
-                    <div id="name_error">{errors.username}</div>
+                    <div id="name_error">{formErrors.username}</div>
 
                     <label>Password:&nbsp;
                         <input
-                        value={values.password}
+                        value={formValues.password}
                         onChange={onInputChange}
                         name='password'
                         type='password'/>
                     </label>
-                    <div id="name_error">{errors.password}</div>
+                    <div id="name_error">{formErrors.password}</div>
     
-                    <button id="submit" disabled={disabled}>Join</button>
+                    <button id="submit" disabled={!formValues.username || !formValues.password}>Join</button>
                 </div>    
             </div>
         </form>
     )
 }    
-
