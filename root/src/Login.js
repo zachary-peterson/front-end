@@ -3,24 +3,24 @@ import { Link, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
 
-const initialFormValues = {
+const loginInitialFormValues = {
     username: '', 
     password: '',
 }
 
-const initialFormErrors = {
+const loginInitialFormErrors = {
     username: '',
     password: '',
 }
 
-const initialDisabled = true
+const loginInitialDisabled = true
 
-export default function RegisterStudent() {
-    const [formValues, setFormValues] = useState(initialFormValues)
-    const [formErrors, setFormErrors] = useState(initialFormErrors)
-    const [disabled, setDisabled] = useState(initialDisabled)
+export default function Login() {
+    const [formValues, setFormValues] = useState(loginInitialFormValues)
+    const [formErrors, setFormErrors] = useState(loginInitialFormErrors)
+    const [disabled, setDisabled] = useState(loginInitialDisabled)
 
-    const regStuFormSchema = yup.object().shape({
+    const loginFormSchema = yup.object().shape({
         username: yup
             .string()
             .required('Username is Required')
@@ -31,9 +31,9 @@ export default function RegisterStudent() {
             .length(8, "Must be at least eight characters")
     })
     
-    const inputChange = (name, value) => {
+    const loginInputChange = (name, value) => {
         yup
-          .reach(regStuFormSchema, name)
+          .reach(loginFormSchema, name)
           .validate(value)
           .then(valid => {
             setFormErrors({
@@ -55,7 +55,7 @@ export default function RegisterStudent() {
     }
 
     const submit = () => {
-        const newStudent = {
+        const user = {
             username: formValues.username.trim(),
             password: formValues.password,
         }
@@ -73,7 +73,7 @@ export default function RegisterStudent() {
 
     useEffect(() => {
         console.log(formValues)
-        regStuFormSchema.isValid(formValues)
+        loginFormSchema.isValid(formValues)
             .then(valid => {
                 console.log(valid)
                 setDisabled(!valid);
