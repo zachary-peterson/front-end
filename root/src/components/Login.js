@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
-import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const loginInitialFormValues = {
     username: '', 
@@ -20,6 +19,7 @@ export default function Login() {
     const [formValues, setFormValues] = useState(loginInitialFormValues)
     const [formErrors, setFormErrors] = useState(loginInitialFormErrors)
     const [disabled, setDisabled] = useState(loginInitialDisabled)
+    const { push } = useHistory();
 
     const loginFormSchema = yup.object().shape({
         username: yup
@@ -64,6 +64,10 @@ export default function Login() {
         axios.post('http://bwschoolinthecloud.herokuapp.com/api/auth/login', user)
         .then(res => {
             console.dir(res);
+            if (res.status === 200 && res.data) {
+                localStorage.setItem('token', res.data.token)
+                push('/dashboard')
+            }
         })
         .catch(err => {
             console.dir(err)

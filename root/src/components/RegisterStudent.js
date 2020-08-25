@@ -6,8 +6,8 @@ import * as yup from 'yup';
 const initialFormValues = {
     email: '',
     username: '', 
-    // first_name: '',
-    // last_name: '',
+    first_name: '',
+    last_name: '',
     password: '',
     role: ''
 }
@@ -36,14 +36,14 @@ export default function RegisterStudent() {
             .string()
             .required('Username is Required')
             .length(3, "Must be at least three characters"),
-        // first_name: yup
-        //     .string()
-        //     .required('First Name is Required')
-        //     .length(3, "Must be at least three characters"),
-        // last_name: yup
-        //     .string()
-        //     .required('Last Name is Required')
-        //     .length(3, "Must be at least three characters"),
+        first_name: yup
+            .string()
+            .required('First Name is Required')
+            .length(3, "Must be at least three characters"),
+        last_name: yup
+            .string()
+            .required('Last Name is Required')
+            .length(3, "Must be at least three characters"),
         password: yup
             .string()
             .required('Password is Required')
@@ -80,8 +80,8 @@ export default function RegisterStudent() {
         const newStudent = {
             email: formValues.email.trim(),
             username: formValues.username.trim(),
-            // first_name: formValues.first_name.trim(),
-            // last_name: formValues.last_name.trim(),
+            first_name: formValues.first_name.trim(),
+            last_name: formValues.last_name.trim(),
             password: formValues.password,
             role: formValues.role
         }
@@ -137,7 +137,7 @@ export default function RegisterStudent() {
                     </label>
                     <div id="name_error">{formErrors.username}</div>
 
-                    {/* <label>First Name:&nbsp;
+                    <label>First Name:&nbsp;
                         <input
                         value={formValues.first_name}
                         onChange={onInputChange}
@@ -153,7 +153,7 @@ export default function RegisterStudent() {
                         name='last_name'
                         type='text'/>
                     </label>
-                    <div id="name_error">{formErrors.last_name}</div> */}
+                    <div id="name_error">{formErrors.last_name}</div>
 
                     <label>Password:&nbsp;
                         <input
