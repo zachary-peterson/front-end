@@ -16,7 +16,8 @@ export const memberReducer = (state = initialState, action) => {
         case FETCH_TASKS:
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                error: ''
             };
         case FETCH_TASKS_RES:
             return {
