@@ -6,8 +6,8 @@ import * as yup from 'yup';
 const initialFormValues = {
     email: '',
     username: '',
-    // first_name: '',
-    // last_name: '',
+    first_name: '',
+    last_name: '',
     password: '',
     role: ''
 }
@@ -15,8 +15,8 @@ const initialFormValues = {
 const initialFormErrors = {
     email: '',
     username: '',
-    // first_name: '',
-    // last_name: '', 
+    first_name: '',
+    last_name: '', 
     password: '',
     role: ''
 }

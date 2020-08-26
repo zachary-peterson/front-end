@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
+import { setAdmin } from '../store';
 
 const loginInitialFormValues = {
     username: '', 
@@ -20,6 +22,7 @@ export default function Login() {
     const [formErrors, setFormErrors] = useState(loginInitialFormErrors)
     const [disabled, setDisabled] = useState(loginInitialDisabled)
     const { push } = useHistory();
+    const dispatch = useDispatch();
 
     const loginFormSchema = yup.object().shape({
         username: yup

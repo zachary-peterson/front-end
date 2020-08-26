@@ -1,7 +1,12 @@
-import { TOGGLE_LANDING } from '../actions';
+import { TOGGLE_LANDING, SET_ADMIN, SET_STUDENT, SET_VOLUNTEER } from '../actions';
 
 const initialState = {
-    isSignUp: false
+    isSignUp: false,
+    member: {
+        admin: false,
+        student: false,
+        volunteer: false
+    },
 }
 
 export const landingReducer = (state = initialState, action) => {
@@ -10,8 +15,32 @@ export const landingReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isSignUp: !state.isSignUp
-            }
+            };
+        case SET_ADMIN:
+            return {
+                ...state,
+                member: {
+                    ...state,
+                    admin: true
+                }
+            };
+        case SET_STUDENT:
+            return {
+                ...state,
+                member: {
+                    ...state,
+                    student: true
+                }
+            };
+        case SET_VOLUNTEER:
+            return {
+                ...state,
+                member: {
+                    ...state,
+                    volunteer: true
+                }
+            };
         default:
             return state
-    }
-}
+    };
+};
