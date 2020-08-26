@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
 
+import StyledForm from './Register'
+
 const loginInitialFormValues = {
     username: '', 
     password: '',
@@ -25,11 +27,11 @@ export default function Login() {
         username: yup
             .string()
             .required('Username is Required')
-            .length(3, "Must be at least three characters"),
+            .min(3, "Must be at least three characters"),
         password: yup
             .string()
             .required('Password is Required')
-            .length(8, "Must be at least eight characters")
+            .min(8, "Must be at least eight characters")
     })
     
     const loginInputChange = (name, value) => {
@@ -94,7 +96,7 @@ export default function Login() {
     }, [formValues])
     
     return (
-        <form className='form container' onSubmit={onSubmit}>
+        <StyledForm className='form container' onSubmit={onSubmit}>
             <div className='form-group submit'>
                 <h2>Log in Now</h2>
 
@@ -107,7 +109,7 @@ export default function Login() {
                         name='username'
                         type='text'/>
                     </label>
-                    <div id="name_error">{formErrors.username}</div>
+                    <div className="error" id="username_error">{formErrors.username}</div>
 
                     <label>Password:&nbsp;
                         <input
@@ -116,11 +118,14 @@ export default function Login() {
                         name='password'
                         type='password'/>
                     </label>
-                    <div id="name_error">{formErrors.password}</div>
+                    <div className="error" id="password_error">{formErrors.password}</div>
     
-                    <button id="submit" disabled={!formValues.username || !formValues.password}>Join</button>
+                    <div className="select-submit">
+                    <button id="submit" disabled={!formValues.username || !formValues.password}>Enter</button>
+                    <p>New User? Sign Up</p>
+                    </div>
                 </div>    
             </div>
-        </form>
+        </StyledForm>
     )
 }    
