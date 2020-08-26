@@ -1,11 +1,6 @@
 import { FETCH_TASKS, FETCH_TASKS_RES, FETCH_TASKS_ERR } from '../actions';
 
 const initialState = {
-    member: {
-        admin: false,
-        student: false,
-        volunteer: false
-    },
     isLoading: false,
     error: '',
     tasks: []
@@ -16,7 +11,8 @@ export const memberReducer = (state = initialState, action) => {
         case FETCH_TASKS:
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                error: ''
             };
         case FETCH_TASKS_RES:
             return {
