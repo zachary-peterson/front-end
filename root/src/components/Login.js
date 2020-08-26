@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
-import { setAdmin } from '../store';
+import { setAdmin, setStudent, setVolunteer } from '../store';
 
 const loginInitialFormValues = {
     username: '', 
@@ -65,6 +65,17 @@ export default function Login() {
         }
         console.log(user)
         axios.post('http://bwschoolinthecloud.herokuapp.com/api/auth/login', user)
+        .then(res => {
+            if(res.data.role === 'admin'){
+                dispatch(setAdmin());
+            }else if(res.data.role === 'student'){
+                dispatch(setStudent());
+            }else if(res.data.role === 'volunteer'){
+                dispatch(setVolunteer());
+            }
+
+            return res
+        })
         .then(res => {
             console.dir(res);
             if (res.status === 200 && res.data) {

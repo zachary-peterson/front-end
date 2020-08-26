@@ -1,10 +1,13 @@
 import { axiosWithAuth } from '../index';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 export const FETCH_TASKS = 'FETCH_TASKS';
 export const FETCH_TASKS_RES = 'FETCH_TASKS_RES';
 export const FETCH_TASKS_ERR = 'FETCH_TASKS_ERR';
-export const ADD_TASK = 'ADD_TASK'
+export const ADD_TASK = 'ADD_TASK';
+export const ADD_RES = 'ADD_RES'
+export const EDIT_TASK = 'EDIT_TASK';
+export const DELETE_TASK = 'DELETE_TASK';
 
 export const fetchTasks = () => (dispatch) => {
     dispatch({ type: FETCH_TASKS });
@@ -22,8 +25,10 @@ export const fetchTasks = () => (dispatch) => {
     })
 }
 
-export const addTask = () => (dispatch) => {
-    axiosWithAuth().post('api/tasks', /* NEED TO PASS IN */ )
+export const addTask = (copy) => (dispatch) => {
+    dispatch({ type: FETCH_TASKS });
+
+    axiosWithAuth().post('api/tasks', copy )
     .then(res => {
         console.log(res);
     })
@@ -32,23 +37,23 @@ export const addTask = () => (dispatch) => {
     })
 }
 
-export const editTask = () => (dispatch) => {
-    const { id } = useParams();
-    axiosWithAuth().put(`api/tasks/${id}`, /* NEED TO PASS IN */)
+export const editTask = (copy) => (dispatch) => {
+    axiosWithAuth().put(`api/tasks/${copy.id}`, copy)
     .then(res => {
         console.log(res);
+        dispatch(fetchTasks())
     })
     .catch(err => {
         console.dir(err);
     })
 }
 
-export const deleteTask = () => (dispatch) => {
-    const { id } = useParams();
+export const deleteTask = (copy) => (dispatch) => {
 
-    axiosWithAuth().delete(`api/tasks/${id}`)
+    axiosWithAuth().delete(`api/tasks/${copy.id}`)
     .then(res => {
         console.log(res);
+        dispatch(fetchTasks())
     })
     .catch(err => {
         console.dir(err);

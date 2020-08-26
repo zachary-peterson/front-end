@@ -1,16 +1,30 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask, fetchTasks } from '../store';
 
 const taskForm = {
     title: '',
     description: ''
 }
 
-export const NewPost = () => {
+const NewTask = () => {
     const [newTask, setNewTask] = useState(taskForm);
+    const dispatch = useDispatch();
+    const { push } = useHistory();
 
     const handleChanges = e => {
-        setNewTask({ [e.target.name]: e.target.value })
+        setNewTask({ ...newTask, [e.target.name]: e.target.value })
     }
+
+    const submitTask = e => {
+        e.preventDefault();
+        dispatch(addTask(newTask));
+        dispatch(fetchTasks())
+        push('/dashboard')
+    }
+
+    console.log(newTask)
 
     return (
         <form>
@@ -30,7 +44,9 @@ export const NewPost = () => {
                 onChange={handleChanges}
             />
 
-            <button onClick={() => /* NEED TO ADD */}>Add Task</button>
+            <button onClick={submitTask}>Add Task</button>
         </form>
     )
 }
+
+export default NewTask;

@@ -1,4 +1,4 @@
-import { FETCH_TASKS, FETCH_TASKS_RES, FETCH_TASKS_ERR, SET_ADMIN } from '../actions';
+import { FETCH_TASKS, FETCH_TASKS_RES, FETCH_TASKS_ERR } from '../actions';
 
 const initialState = {
     isLoading: false,

@@ -1,15 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useParams, useHistory } from 'react-router-dom';
+import { axiosWithAuth, fetchTasks } from '../store';
+import { editTask } from '../store/actions/signInActions';
 
 const taskForm = {
     title: '',
     description: ''
 }
 
-export const NewPost = () => {
-    const [newTask, setNewTask] = useState(taskForm);
+export const EditTask = (task) => {
+    const [taskToEdit, setTaskToEdit] = useState(taskForm);
+    const dispatch = useDispatch();
+    const { push } = useHistory();
+    const { id } = useParams()
+
+    useEffect(() => {
+        axiosWithAuth().get(`api/tasks/${id}`)
+        .then(res => {
+            // console.log(res);
+            setTaskToEdit(res.data)
+        })
+        .catch(err => {
+            console.dir(err)
+        })
+    }, [])
 
     const handleChanges = e => {
-        setNewTask({ [e.target.name]: e.target.value })
+        e.preventDefault();
+        setTaskToEdit({ ...taskToEdit, [e.target.name]: e.target.value })
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        dispatch(editTask(taskToEdit));
+        dispatch(fetchTasks())
+        push('/dashboard');
     }
 
     return (
@@ -18,7 +44,7 @@ export const NewPost = () => {
             <input
                 type='text'
                 name='title'
-                value={newTask.title}
+                value={taskToEdit.title}
                 onChange={handleChanges}
             />
 
@@ -26,11 +52,13 @@ export const NewPost = () => {
             <input
                 type='text'
                 name='description'
-                value={newTask.description}
+                value={taskToEdit.description}
                 onChange={handleChanges}
             />
 
-            <button onClick={() => /* NEED TO ADD */}>Update</button>
+            <button onClick={handleSubmit}>Update</button>
         </form>
     )
 }
+
+export default EditTask;
