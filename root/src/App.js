@@ -11,7 +11,7 @@ import './App.css';
 
 function App() {
   return (
-    <>
+    <div className='App'>
     <NavBar />
       <Switch>
         <PrivateRoute path='/dashboard/edit-task/:id' component={EditTask} />
@@ -19,7 +19,7 @@ function App() {
         <PrivateRoute path='/dashboard' component={Dashboard} />
         <Route path='/' component={LandingPage} />
       </Switch>
-    </>
+    </div>
   );
 }
 

@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import styled from 'styled-components';
 import axios from 'axios';
 import * as yup from 'yup';
-import { setAdmin, setStudent, setVolunteer } from '../store';
+import { setAdmin, setStudent, setVolunteer, toggleLanding } from '../store';
+import { StyledForm } from './RegisterStudent';
+
+
 
 const loginInitialFormValues = {
     username: '', 
@@ -28,11 +32,11 @@ export default function Login() {
         username: yup
             .string()
             .required('Username is Required')
-            .length(3, "Must be at least three characters"),
+            .min(3, "Must be at least three characters"),
         password: yup
             .string()
             .required('Password is Required')
-            .length(8, "Must be at least eight characters")
+            .min(8, "Must be at least eight characters")
     })
     
     const loginInputChange = (name, value) => {
@@ -108,7 +112,7 @@ export default function Login() {
     }, [formValues])
     
     return (
-        <form className='form container' onSubmit={onSubmit}>
+        <StyledForm className='form container' onSubmit={onSubmit}>
             <div className='form-group submit'>
                 <h2>Log in Now</h2>
 
@@ -116,6 +120,7 @@ export default function Login() {
 
                     <label>Username:&nbsp;
                         <input
+                        className='field'
                         value={formValues.username}
                         onChange={onInputChange}
                         name='username'
@@ -125,6 +130,7 @@ export default function Login() {
 
                     <label>Password:&nbsp;
                         <input
+                        className='field'
                         value={formValues.password}
                         onChange={onInputChange}
                         name='password'
@@ -132,9 +138,12 @@ export default function Login() {
                     </label>
                     <div id="name_error">{formErrors.password}</div>
     
-                    <button id="submit" disabled={!formValues.username || !formValues.password}>Join</button>
+                    <div className='select-submit'>
+                        <button id="submit" disabled={disabled}>Enter</button>
+                        <p>Not a User? <span onClick={() => dispatch(toggleLanding())}>Sign Up</span></p>
+                    </div>
                 </div>    
             </div>
-        </form>
+        </StyledForm>
     )
 }    

@@ -18,8 +18,6 @@ export const LandingPage = () => {
         <section>
             <h2>Welcome to eSchool in the Cloud</h2>
 
-            <button onClick={() => landingToggle()}>Toggle</button>
-
             {
                 signUp ? <RegisterStudent /> : <Login /> 
             }

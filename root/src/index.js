@@ -8,6 +8,8 @@ import logger from 'redux-logger';
 import App from './App';
 import { rootReducer } from './store';
 
+import './index.css'
+
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 console.log(store);
@@ -15,7 +17,7 @@ console.log(store);
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <App />
+      <App className='App' />
     </Router>
   </Provider>,
   document.getElementById('root')
