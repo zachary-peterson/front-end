@@ -1,13 +1,26 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { LoadingView } from './LoadingView';
+import { fetchTasks } from '../store';
+
 
 export const VolunteerView = () => {
     const tasks = useSelector(state => state.memberReducer.tasks);
     const loading = useSelector(state => state.memberReducer.isLoading);
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(fetchTasks())
+
+    }, [tasks.length])
 
     return (
         <section>
             <h2>Volunteer View</h2>
+
+            {
+                loading ? <div><LoadingView /></div> : null
+            }
 
             {
                 tasks.length > 0 ? tasks.map(task => {

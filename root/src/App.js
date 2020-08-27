@@ -6,6 +6,7 @@ import { Dashboard } from './components/Dashboard';
 import { LandingPage } from './components/LandingPage';
 import NewTask from './components/NewTask';
 import EditTask from './components/EditTask';
+import { Profile } from './components/Profile';
 
 import './App.css';
 
@@ -14,6 +15,7 @@ function App() {
     <div className='App'>
     <NavBar />
       <Switch>
+        <PrivateRoute path='/profile' component={Profile} />
         <PrivateRoute path='/dashboard/edit-task/:id' component={EditTask} />
         <PrivateRoute path='/dashboard/add-task' component={NewTask} />
         <PrivateRoute path='/dashboard' component={Dashboard} />
