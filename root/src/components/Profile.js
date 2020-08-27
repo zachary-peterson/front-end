@@ -17,16 +17,18 @@ export const Profile = () => {
             console.dir(err)
         })
 
-    }, [memberID])
+    }, [])
 
     const handleChanges = e => {
+        e.preventDefault()
         setMember({...member, [e.target.name]: e.target.value})
     }
 
     const handleSubmit = () => {
-        axiosWithAuth().put(`api/users/id/${memberID}`, member)
+        axiosWithAuth().put(`api/users/${memberID}`, member)
         .then(res => {
             console.log(res)
+            dispatch(setEditing())
         })
         .catch(err => {
             console.dir(err)
@@ -41,33 +43,24 @@ export const Profile = () => {
                 ?
 
                 <div>
-                    <label htmlFor='firstName'>First Name:</label>
+                    <label htmlFor='first_name'>First Name:</label>
                     <input
                         type='text'
+                        name='first_name'
                         value={member['first_name']}
                         onChange={handleChanges}
                     />
 
-                    <label htmlFor='lastName'>Last Name:</label>
+                    <label htmlFor='last_name'>Last Name:</label>
                     <input
                         type='text'
+                        name='last_name'
                         value={member['last_name']}
                         onChange={handleChanges}
                     />
 
-                    <label htmlFor='firstName'>Username:</label>
-                    <input
-                        type='text'
-                        value={member.username}
-                        onChange={handleChanges}
-                    />
-                    
-                    <label htmlFor='email'>Email:</label>
-                    <input
-                        type='text'
-                        value={member.email}
-                        onChange={handleChanges}
-                    />
+                    <h3>{member.username}</h3>
+                    <h3>{member.email}</h3>
 
                     <button onClick={handleSubmit} >Submit</button>
                     <button onClick={() => dispatch(setEditing())} >Cancel</button>

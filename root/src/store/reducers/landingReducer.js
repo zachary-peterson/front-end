@@ -1,4 +1,4 @@
-import { TOGGLE_LANDING, SET_ADMIN, SET_STUDENT, SET_VOLUNTEER, SET_MEMBER_ID } from '../actions';
+import { TOGGLE_LANDING, SET_ADMIN, SET_STUDENT, SET_VOLUNTEER, SET_MEMBER_ID, CLEAR_STATE } from '../actions';
 
 const initialState = {
     isSignUp: false,
@@ -37,6 +37,10 @@ export const landingReducer = (state = initialState, action) => {
             return {
                 ...state,
                 memberID: action.payload
+            }
+        case CLEAR_STATE:
+            return {
+                state: null
             }
         default:
             return state

@@ -53,7 +53,9 @@ export const memberReducer = (state = initialState, action) => {
                 isEditing: !state.isEditing
             }
         case CLEAR_STORAGE:
-            storage.removeItem('persist:root');
+            return {
+                state: null
+            }
         default:
             return state;
     };

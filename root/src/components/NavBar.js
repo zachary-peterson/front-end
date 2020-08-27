@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { clearStorage } from '../store';
+import { clearStorage, clearState } from '../store';
 
 const Header = styled.div`
     display: flex;
@@ -45,7 +45,7 @@ export const NavBar = () => {
         e.preventDefault();
         localStorage.clear();
         dispatch(clearStorage());
-        dispatch(clearStorage());
+        dispatch(clearState());
         push('/')
     }
 

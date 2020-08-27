@@ -83,7 +83,7 @@ export default function Login() {
         })
         .then(res => {
             console.dir(res);
-            debugger
+            
             if (res.status === 200 && res.data) {
                 localStorage.setItem('token', res.data.token)
                 push('/dashboard')
