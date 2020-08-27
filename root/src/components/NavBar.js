@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const Header = styled.div`
     display: flex;
@@ -37,10 +37,10 @@ export const NavBar = () => {
 
     return (
         <Header>
-        <nav>
-            <button onClick={() => push('/')}>Home</button>
-            <button onClick={() => push('/dashboard')}>Dashboard</button>
-        </nav>
+            <nav>
+                <button onClick={() => push('/')}>Home</button>
+                <button onClick={() => push('/dashboard')}>Dashboard</button>
+            </nav>
         </Header>
     )
 }

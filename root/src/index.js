@@ -8,16 +8,18 @@ import logger from 'redux-logger';
 import App from './App';
 import { rootReducer } from './store';
 
+import './index.css'
+
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 console.log(store);
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <Router>
-      <App />
+      <App className='App' />
     </Router>
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 

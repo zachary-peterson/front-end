@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-// import { Link, Route, Switch } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleLanding } from '../store';
+import styled from 'styled-components';
 import axios from 'axios';
 import * as yup from 'yup';
-import styled from 'styled-components'
 
-const StyledForm = styled.form`
+export const StyledForm = styled.form`
     width: 100%;
     font-family: 'Arial';
     font-size: 62.5%;
@@ -65,9 +67,9 @@ const StyledForm = styled.form`
 
 const initialFormValues = {
     email: '',
-    username: '', 
-    // first_name: '',
-    // last_name: '',
+    username: '',
+    first_name: '',
+    last_name: '',
     password: '',
     role: ''
 }
@@ -75,20 +77,22 @@ const initialFormValues = {
 const initialFormErrors = {
     email: '',
     username: '',
-    // first_name: '',
-    // last_name: '', 
+    first_name: '',
+    last_name: '', 
     password: '',
     role: ''
 }
 
 const initialDisabled = true
 
-export default function Register() {
+export default function RegisterStudent() {
     const [formValues, setFormValues] = useState(initialFormValues)
     const [formErrors, setFormErrors] = useState(initialFormErrors)
     const [disabled, setDisabled] = useState(initialDisabled)
+    const signUp = useSelector(state => state.landingReducer.isSignUp);
+    const dispatch = useDispatch();
 
-    const regFormSchema = yup.object().shape({
+    const regStuFormSchema = yup.object().shape({
         email: yup
             .string()
             .email('Must be a valid email')
@@ -97,14 +101,14 @@ export default function Register() {
             .string()
             .required('Username is Required')
             .min(3, "Must be at least three characters"),
-        // first_name: yup
-        //     .string()
-        //     .required('First Name is Required')
-        //     .length(3, "Must be at least three characters"),
-        // last_name: yup
-        //     .string()
-        //     .required('Last Name is Required')
-        //     .length(3, "Must be at least three characters"),
+        first_name: yup
+            .string()
+            .required('First Name is Required')
+            .min(3, "Must be at least three characters"),
+        last_name: yup
+            .string()
+            .required('Last Name is Required')
+            .min(3, "Must be at least three characters"),
         password: yup
             .string()
             .required('Password is Required')
@@ -116,7 +120,7 @@ export default function Register() {
     
     const inputChange = (name, value) => {
         yup
-          .reach(regFormSchema, name)
+          .reach(regStuFormSchema, name)
           .validate(value)
           .then(valid => {
             setFormErrors({
@@ -133,28 +137,26 @@ export default function Register() {
     
         setFormValues({
           ...formValues,
-          [name]: value 
+          [name]: value
         })
     }
 
     const submit = () => {
-        const newUser = {
+        const newStudent = {
             email: formValues.email.trim(),
             username: formValues.username.trim(),
-            // first_name: formValues.first_name.trim(),
-            // last_name: formValues.last_name.trim(),
+            first_name: formValues.first_name.trim(),
+            last_name: formValues.last_name.trim(),
             password: formValues.password,
             role: formValues.role
         }
-        axios.post('http://bwschoolinthecloud.herokuapp.com/api/auth/register', newUser)
+        axios.post('http://bwschoolinthecloud.herokuapp.com/api/auth/register', formValues)
         .then(res => {
             console.log(res)
+            dispatch(toggleLanding())
         })
         .catch(err => {
             console.dir(err)
-        })
-        .finally(() => {
-            setFormValues(initialFormValues)
         })
     }
 
@@ -169,8 +171,8 @@ export default function Register() {
     }
 
     useEffect(() => {
-        // console.log(formValues)
-        regFormSchema.isValid(formValues)
+        console.log(formValues)
+        regStuFormSchema.isValid(formValues)
             .then(valid => {
                 console.log(valid)
                 setDisabled(!valid);
@@ -202,24 +204,26 @@ export default function Register() {
                         type='text'/>
                     </label>
                     <div className="error" id="username_error">{formErrors.username}</div>
-{/* 
+
                     <label>First Name:&nbsp;
                         <input
+                        className="field"
                         value={formValues.first_name}
                         onChange={onInputChange}
                         name='first_name'
                         type='text'/>
                     </label>
-                    <div id="name_error">{formErrors.first_name}</div>
+                    <div id="first_name_error">{formErrors.first_name}</div>
 
                     <label>Last Name:&nbsp;
                         <input
+                        className="field"
                         value={formValues.last_name}
                         onChange={onInputChange}
                         name='last_name'
                         type='text'/>
                     </label>
-                    <div id="name_error">{formErrors.last_name}</div> */}
+                    <div id="last_name_error">{formErrors.last_name}</div>
 
                     <label>Password:&nbsp;
                         <input
@@ -249,7 +253,7 @@ export default function Register() {
                     
     {/* want to add link here */}
                     <button id="submit" disabled={disabled}>Join</button>
-                    <p>Already a User? Sign In</p>
+                    <p>Already a User? <span onClick={() => dispatch(toggleLanding())}>Sign In</span></p>
                     </div>
                 </div>    
             </div>
