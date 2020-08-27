@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { LoadingView } from './LoadingView';
-import { fetchTasks } from '../store';
+import { fetchTasks, toggleViewMember, toggleViewTasks } from '../store';
 import styled from 'styled-components';
 
 const VolDiv = styled.div`
@@ -13,18 +13,23 @@ const VolDiv = styled.div`
 
     .top {
         background-color: #e6eaf0;
+        margin: 1% auto;
         padding: 2.5% 0;
         
         h2 {
             font-size: 3.5rem;
             font-family: 'Russo One', sans-serif;
+            margin: 0 auto;
+            padding: 1% 5%;
+            width: 100%;
         }
     }
 
     .bot {
         display: flex;
         flex-flow: row wrap;
-        margin: 2% 0;
+        margin: 2% auto;
+        width: 100%;
 
         .tasks {
             font-size: 1.5rem;
@@ -33,11 +38,26 @@ const VolDiv = styled.div`
             background-color: #e6eaf0;
             padding: 3% 0; 
             font-family: 'Alata', sans-serif;
+            border: solid 2px #000000;
 
             h3 {
                 font-size: 3rem;
                 text-transform: uppercase;
             }
+        }
+    }
+
+    .but {
+        margin-left: 70%;
+        padding: 2%;
+        font-size: 1.5rem;
+        background-color: #545454;
+        color: #e53242;
+        font-family: 'Russo One', sans-serif;
+        border: 2px solid #ffffff;
+
+        &:hover {
+            background-color: #7a7a7a;
         }
     }
 
@@ -52,6 +72,8 @@ const VolDiv = styled.div`
             width: 90%;
             margin: 0 auto;
             color: 	#e6eaf0;
+            font-family: 'Alata', sans-serif;
+            font-size: 2.5rem;
         }
         
         .big {
@@ -67,6 +89,8 @@ const VolDiv = styled.div`
 export const VolunteerView = () => {
     const tasks = useSelector(state => state.memberReducer.tasks);
     const loading = useSelector(state => state.memberReducer.isLoading);
+    const taskView = useSelector(state => state.adminReducer.taskView);
+    const memberView = useSelector(state => state.adminReducer.memberView);
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -77,18 +101,25 @@ export const VolunteerView = () => {
     return (
         <VolDiv>
             <div className='spacer'><br/></div>
-            <div className='top'>
-                <h2>Tasks that need <em>your</em> help completing...</h2>
-                <p></p>
-            </div>
 
             {
                 loading ? <div><LoadingView /></div> : null
             }
 
-            <div className='bot'>
+            <div>
                 {
-                    !loading && tasks ? tasks.map(task => {
+                    !loading && memberView && tasks ? 
+                    
+                    <div>
+                        <div>
+                            <button className='but' onClick={() => dispatch(toggleViewTasks())}>Mentor Resources</button>
+                        </div>
+                            <div className='top'>
+                        <h2>Tasks that need <em>your</em> help completing...</h2>
+                        
+                    </div>
+                    <div className='bot'>
+                    {tasks.map(task => {
                         return (
                             <div className='tasks' key={task.id} >
                                 {/* <h2>Task Title:</h2> */}
@@ -97,13 +128,23 @@ export const VolunteerView = () => {
                                 <p>{task.description}</p>
                             </div>
                         )
-                    }) 
+                    })}
+                    </div>
+                    
+                    </div>
                     
                     : 
                     
                     null
                 }
-                <div className='hold'>
+                
+                { !loading && taskView ?
+                    <div className='hold'>
+
+                        <div>
+                            <button className='but' onClick={() => dispatch(toggleViewMember())}>View Mentee's Tasks</button>
+                        </div>
+
                     <h3 className='big'>Questions to ask yourself as a mentor...</h3>
 
                         <ul>
@@ -118,6 +159,9 @@ export const VolunteerView = () => {
                         </ul>
 
                 </div>
+
+                :null
+                }
 
             </div>
         </VolDiv>

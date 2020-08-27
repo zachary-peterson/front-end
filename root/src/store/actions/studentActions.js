@@ -3,6 +3,8 @@ import { axiosWithAuth } from "../../utils/axiosWithAuth";
 export const FETCH_VOLUNTEERS = 'FETCH_VOLUNTEERS';
 export const FETCH_VOLUNTEERS_RES = 'FETCH_VOLUNTEERS_RES';
 export const FETCH_VOLUNTEERS_ERR = 'FETCH_VOLUNTEERS_ERR';
+export const TOGGLE_ARTICLE_VIEW = 'TOGGLE_ARTICLE_VIEW';
+export const TOGGLE_MAIN_VIEW = 'TOGGLE_MAIN_VIEW'
 
 export const fetchVolunteers = () => (dispatch) => {
     dispatch({ type: FETCH_VOLUNTEERS })

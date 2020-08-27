@@ -9,7 +9,7 @@ const StudentDiv = styled.div`
     margin: 1% auto;
     background-color: #9da7b6;
     padding-bottom: 50px;
-    border: solid 2px #ffffff;
+    border: solid 5px #ffffff;
 
     .wrapper {
         width: 100%;
@@ -24,20 +24,21 @@ const StudentDiv = styled.div`
         margin: 2% auto;
         background-color: #c1c4d0;
         padding: 2%;
-        border-top: 8px solid #e53242;
-        border-bottom: 8px solid #e53242;
+        border-top: 8px solid #21295C;
+        border-bottom: 8px solid #21295C;
 
         h2 {
             font-size: 3rem;
             font-family: 'Russo One', sans-serif;
             margin-bottom: 0;
-            text-shadow: 1px 1px #000000;
+            text-shadow: 1px 1px #ffffff;
+            color: #e53242;
         }
     }
 
     .left {
         width: 35%;
-        background-color: #e11d2e;
+        background-color: #21295C;
         height: 100%;
         margin: 0 auto;
         font-size: 1.75rem;
@@ -49,6 +50,11 @@ const StudentDiv = styled.div`
             font-family: 'Roboto', sans-serif;
             color: #ffffff;
             text-shadow: 1px 2px #000000;
+        }
+
+        h2 {
+            color: #ffffff;
+            text-shadow: 2px 2px #000000;
         }
     }
 
@@ -74,6 +80,8 @@ const StudentDiv = styled.div`
 export const StudentView = () => {
     const volunteers = useSelector(state => state.memberReducer.volunteers);
     const loading = useSelector(state => state.memberReducer.isLoading);
+    const taskView = useSelector(state => state.adminReducer.taskView);
+    const memberView = useSelector(state => state.adminReducer.memberView);
     const dispatch = useDispatch();
     
     useEffect(() => {
