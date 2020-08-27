@@ -1,6 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { clearStorage, clearState } from '../store';
+import { persistor } from '../index';
 
 const Header = styled.div`
     display: flex;
@@ -34,13 +37,40 @@ const Header = styled.div`
 
 export const NavBar = () => {
     const { push } = useHistory();
+    const admin = useSelector(state => state.landingReducer.admin);
+    const student = useSelector(state => state.landingReducer.student);
+    const volunteer = useSelector(state => state.landingReducer.volunteer);
+    const dispatch = useDispatch();
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        dispatch(clearStorage());
+        dispatch(clearState());
+        // persistor.purge();
+        push('/')
+    }
 
     return (
         <Header>
-            <nav>
-                <button onClick={() => push('/')}>Home</button>
-                <button onClick={() => push('/dashboard')}>Dashboard</button>
-            </nav>
+                {
+                    (admin || student || volunteer) 
+
+                       ?
+
+                    <nav>
+                    <button onClick={() => push('/dashboard')}>Dashboard</button>
+                    <button onClick={() => push('/profile')} >Profile</button>
+                    <button onClick={handleSubmit}>Sign Out</button>
+                    </nav>
+
+                    :
+
+                    <nav>
+                    <button onClick={() => push('/')}>Home</button>
+                    </nav>
+                }
+                
         </Header>
     )
 }

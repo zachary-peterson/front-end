@@ -10,6 +10,7 @@ export const fetchVolunteers = () => (dispatch) => {
     axiosWithAuth().get('api/users')
     .then(res => {
         console.log(res);
+        dispatch({ type: FETCH_VOLUNTEERS_RES, payload: res.data.data })
     })
     .catch(err => {
         console.dir(err)
