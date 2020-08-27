@@ -1,5 +1,5 @@
 import { axiosWithAuth } from '../index';
-import { useParams, useHistory } from 'react-router-dom';
+import { fetchVolunteers } from '../actions'
 
 export const FETCH_TASKS = 'FETCH_TASKS';
 export const FETCH_TASKS_RES = 'FETCH_TASKS_RES';
@@ -8,6 +8,8 @@ export const ADD_TASK = 'ADD_TASK';
 export const ADD_RES = 'ADD_RES'
 export const EDIT_TASK = 'EDIT_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
+export const SET_MEMBER_ID = 'SET_MEMBER_ID';
+export const SET_EDITING = 'SET_EDITING';
 
 export const fetchTasks = () => (dispatch) => {
     dispatch({ type: FETCH_TASKS });
@@ -58,4 +60,21 @@ export const deleteTask = (copy) => (dispatch) => {
     .catch(err => {
         console.dir(err);
     })
+}
+
+export const deleteMember = (copy) => (dispatch) => {
+    axiosWithAuth().delete(`api/users/${copy.id}`)
+    .then(res => {
+        console.log(res);
+        dispatch(fetchVolunteers())
+    })
+    .catch(err => {})
+}
+
+export const setMemberID = (res) => (dispatch) => {
+    dispatch({ type: SET_MEMBER_ID, payload: res })
+}
+
+export const setEditing = () => (dispatch) => {
+    dispatch({ type: SET_EDITING });
 }

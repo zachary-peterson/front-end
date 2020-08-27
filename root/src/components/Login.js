@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
 import axios from 'axios';
 import * as yup from 'yup';
-import { setAdmin, setStudent, setVolunteer, toggleLanding } from '../store';
+import { setAdmin, setStudent, setVolunteer, toggleLanding, setMemberID } from '../store';
 import { StyledForm } from './RegisterStudent';
 
 
@@ -68,7 +67,7 @@ export default function Login() {
             password: formValues.password,
         }
         console.log(user)
-        axios.post('http://bwschoolinthecloud.herokuapp.com/api/auth/login', user)
+        axios.post('https://bwschoolinthecloud.herokuapp.com/api/auth/login', user)
         .then(res => {
             if(res.data.role === 'admin'){
                 dispatch(setAdmin());
@@ -78,10 +77,13 @@ export default function Login() {
                 dispatch(setVolunteer());
             }
 
+            dispatch(setMemberID(res.data.id))
+
             return res
         })
         .then(res => {
             console.dir(res);
+            
             if (res.status === 200 && res.data) {
                 localStorage.setItem('token', res.data.token)
                 push('/dashboard')

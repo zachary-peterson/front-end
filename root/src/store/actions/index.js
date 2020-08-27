@@ -1,11 +1,19 @@
+import storage from 'redux-persist/lib/storage';
+
+
 export { 
     FETCH_TASKS,
     FETCH_TASKS_RES,
     FETCH_TASKS_ERR,
     ADD_RES,
+    SET_MEMBER_ID,
+    SET_EDITING,
     fetchTasks,
     addTask,
-    deleteTask
+    deleteTask,
+    setMemberID,
+    setEditing,
+    deleteMember
 } from './signInActions'
 
 export {
@@ -20,6 +28,8 @@ export {
     export const SET_STUDENT = 'SET_STUDENT';
     export const SET_VOLUNTEER = 'SET_VOLUNTEER';
     export const TOGGLE_ADD = 'TOGGLE_ADD';
+    export const CLEAR_STORAGE = 'CLEAR_STORAGE'
+    export const CLEAR_STATE = 'CLEAR_STATE';
 
     export const toggleLanding = () => (dispatch) => {
         dispatch({ type: TOGGLE_LANDING })
@@ -39,4 +49,14 @@ export {
 
     export const toggleAdd = () => (dispatch) => {
         dispatch({ type: TOGGLE_ADD })
+    }
+
+    export const clearStorage = () => (dispatch) => {
+        storage.removeItem('persist:root');
+        dispatch({ type: CLEAR_STORAGE })
+    }
+
+    export const clearState = () => (dispatch) => {
+        localStorage.clear()
+        dispatch({ type: CLEAR_STATE })
     }

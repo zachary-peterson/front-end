@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchVolunteers } from '../store'
+import { fetchVolunteers } from '../store';
+import { LoadingView } from './LoadingView';
 
 export const StudentView = () => {
-    const volunteers = useSelector(state => state.studentReducer.volunteers);
+    const volunteers = useSelector(state => state.memberReducer.volunteers);
+    const loading = useSelector(state => state.memberReducer.isLoading);
     const dispatch = useDispatch();
     
     useEffect(() => {
@@ -15,9 +17,13 @@ export const StudentView = () => {
             <h2>Student View</h2>
 
             {
+                loading ? <div><LoadingView /></div> : null
+            }
+
+            {
                 volunteers ? volunteers.map(vol => {
                     return (
-                        <div>
+                        <div key={vol.id} >
                             <h3>{vol.username}</h3>
                         </div>
                     )
