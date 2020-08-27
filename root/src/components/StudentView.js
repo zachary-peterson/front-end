@@ -32,7 +32,7 @@ const StudentDiv = styled.div`
             font-family: 'Russo One', sans-serif;
             margin-bottom: 0;
             text-shadow: 1px 1px #ffffff;
-            color: #e53242;
+            color: #000000;
         }
     }
 
