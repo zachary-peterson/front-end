@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { axiosWithAuth, setEditing } from '../store';
+import { NewTaskForm } from './NewTask';
 
 export const Profile = () => {
     const memberID = useSelector(state => state.landingReducer.memberID);
@@ -36,34 +37,40 @@ export const Profile = () => {
     }
 
     return (
-        <div>
+        <NewTaskForm>
             {
                 member && editing
                 
                 ?
 
                 <div>
-                    <label htmlFor='first_name'>First Name:</label>
-                    <input
-                        type='text'
-                        name='first_name'
-                        value={member['first_name']}
-                        onChange={handleChanges}
-                    />
+                    <div className='sep'>
+                        <label className='left' htmlFor='first_name'>First Name:</label>
+                        <input
+                            className='right'
+                            type='text'
+                            name='first_name'
+                            value={member['first_name']}
+                            onChange={handleChanges}
+                        />
+                    </div>
 
-                    <label htmlFor='last_name'>Last Name:</label>
-                    <input
-                        type='text'
-                        name='last_name'
-                        value={member['last_name']}
-                        onChange={handleChanges}
-                    />
+                    <div className='sep'> 
+                        <label className='left' htmlFor='last_name'>Last Name:</label>
+                        <input
+                            className='right'
+                            type='text'
+                            name='last_name'
+                            value={member['last_name']}
+                            onChange={handleChanges}
+                        />
+                    </div>
 
-                    <h3>{member.username}</h3>
-                    <h3>{member.email}</h3>
+                    <h3 className='text'>{member.username}</h3>
+                    <h3 className='text'>{member.email}</h3>
 
-                    <button onClick={handleSubmit} >Submit</button>
-                    <button onClick={() => dispatch(setEditing())} >Cancel</button>
+                    <button className='sub' onClick={handleSubmit} >Submit</button>
+                    <button className='sub' onClick={() => dispatch(setEditing())} >Cancel</button>
                 </div> 
 
                 : 
@@ -77,18 +84,18 @@ export const Profile = () => {
                 ? 
                 
                 <div>
-                    <h3>{member['first_name']}</h3>
-                    <h3>{member['last_name']}</h3>
-                    <h3>{member.username}</h3>
-                    <h3>{member.email}</h3>
+                    <h3 className='text'>{member['first_name']}</h3>
+                    <h3 className='text'>{member['last_name']}</h3>
+                    <h3 className='text'>{member.username}</h3>
+                    <h3 className='text'>{member.email}</h3>
 
-                    <button onClick={() => dispatch(setEditing())} >Edit Profile</button>
+                    <button className='sub' onClick={() => dispatch(setEditing())} >Edit Profile</button>
                 </div> 
                 
                 :
 
                 null
             }
-        </div>
+        </NewTaskForm>
     )
 }

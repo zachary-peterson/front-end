@@ -30,7 +30,7 @@ console.log(store);
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={<LoadingView />} persistor={persistor}> 
+    <PersistGate loading={<LoadingView />} persistor={persistor}>
       <Router>
         <App className='App' />
       </Router>

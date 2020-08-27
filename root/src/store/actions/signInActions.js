@@ -10,6 +10,7 @@ export const EDIT_TASK = 'EDIT_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 export const SET_MEMBER_ID = 'SET_MEMBER_ID';
 export const SET_EDITING = 'SET_EDITING';
+export const LOADNG_RES = 'LOADING_RES';
 
 export const fetchTasks = () => (dispatch) => {
     dispatch({ type: FETCH_TASKS });
@@ -77,4 +78,16 @@ export const setMemberID = (res) => (dispatch) => {
 
 export const setEditing = () => (dispatch) => {
     dispatch({ type: SET_EDITING });
+}
+
+export const setLoading = () => (dispatch) => {
+    dispatch({ type: FETCH_TASKS });
+}
+
+export const loadingRes = () => (dispatch) => {
+    dispatch({ type: LOADNG_RES })
+}
+
+export const setErrors = (err) => (dispatch) => {
+    dispatch({ type: FETCH_TASKS_ERR, payload: err.message })
 }
