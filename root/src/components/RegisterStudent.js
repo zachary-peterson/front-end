@@ -150,7 +150,7 @@ export default function RegisterStudent() {
             password: formValues.password,
             role: formValues.role
         }
-        axios.post('http://bwschoolinthecloud.herokuapp.com/api/auth/register', formValues)
+        axios.post('https://bwschoolinthecloud.herokuapp.com/api/auth/register', formValues)
         .then(res => {
             console.log(res)
             dispatch(toggleLanding())

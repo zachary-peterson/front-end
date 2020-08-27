@@ -67,7 +67,7 @@ export default function Login() {
             password: formValues.password,
         }
         console.log(user)
-        axios.post('http://bwschoolinthecloud.herokuapp.com/api/auth/login', user)
+        axios.post('https://bwschoolinthecloud.herokuapp.com/api/auth/login', user)
         .then(res => {
             if(res.data.role === 'admin'){
                 dispatch(setAdmin());
