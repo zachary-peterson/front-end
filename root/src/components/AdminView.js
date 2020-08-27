@@ -14,7 +14,7 @@ export const AdminView = () => {
     useEffect(() => {
         dispatch(fetchTasks())
         dispatch(fetchVolunteers())
-    }, [tasks.length])
+    }, [])
 
     
     return (
@@ -28,7 +28,7 @@ export const AdminView = () => {
             }
 
             {
-                tasks.length > 0 ? tasks.map(task => {
+                tasks ? tasks.map(task => {
                     return (
                         <div key={task.id} >
                             <h3>{task.title}</h3>

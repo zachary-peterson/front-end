@@ -21,7 +21,7 @@ export const StudentView = () => {
             }
 
             {
-                volunteers.length > 0 ? volunteers.map(vol => {
+                volunteers ? volunteers.map(vol => {
                     return (
                         <div key={vol.id} >
                             <h3>{vol.username}</h3>

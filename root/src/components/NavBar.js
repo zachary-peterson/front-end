@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { clearStorage, clearState } from '../store';
+import { persistor } from '../index';
 
 const Header = styled.div`
     display: flex;
@@ -46,6 +47,7 @@ export const NavBar = () => {
         localStorage.clear();
         dispatch(clearStorage());
         dispatch(clearState());
+        // persistor.purge();
         push('/')
     }
 
