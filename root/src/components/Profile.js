@@ -69,7 +69,7 @@ export const Profile = () => {
 
                     <h3 className='text'>Username: {member.username}</h3>
                     <h3 className='text'>Password: {member.email}</h3>
-                    <h4><em>Please Note: </em>Username and Password can not be changed...</h4>
+                    <h4><em>Please Note:</em> Username and Password can not be changed</h4>
 
                     <button className='sub' onClick={handleSubmit} >Submit</button>
                     <button className='sub' onClick={() => dispatch(setEditing())} >Cancel</button>
