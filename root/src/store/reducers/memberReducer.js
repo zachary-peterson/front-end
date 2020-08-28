@@ -1,5 +1,6 @@
 import { FETCH_TASKS, FETCH_TASKS_RES, FETCH_TASKS_ERR, FETCH_VOLUNTEERS, FETCH_VOLUNTEERS_RES, FETCH_VOLUNTEERS_ERR, CLEAR_STORAGE, SET_EDITING } from '../actions';
 import storage from 'redux-persist/lib/storage';
+import { LOADNG_RES } from '../actions/signInActions';
 
 const initialState = {
     isLoading: false,
@@ -51,6 +52,11 @@ export const memberReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isEditing: !state.isEditing
+            }
+        case LOADNG_RES:
+            return {
+                ...state,
+                isLoading: false,
             }
         case CLEAR_STORAGE:
             return {

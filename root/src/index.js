@@ -18,7 +18,7 @@ import './index.css'
 const persistConfig = {
   key: 'root',
   storage: storage,
-  stateReconciler: autoMergeLevel2 
+  stateReconciler: autoMergeLevel2
  };
 
 const pReducer = persistReducer(persistConfig, rootReducer);
@@ -26,11 +26,9 @@ const pReducer = persistReducer(persistConfig, rootReducer);
 export const store = createStore(pReducer, applyMiddleware(thunk, logger));
 export const persistor = persistStore(store);
 
-console.log(store);
-
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={<LoadingView />} persistor={persistor}> 
+    <PersistGate loading={<LoadingView />} persistor={persistor}>
       <Router>
         <App className='App' />
       </Router>

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { axiosWithAuth, fetchTasks } from '../store';
 import { editTask } from '../store/actions/signInActions';
+import { NewTaskForm } from './NewTask'
 
 const taskForm = {
     title: '',
@@ -22,7 +23,7 @@ export const EditTask = (task) => {
             setTaskToEdit(res.data)
         })
         .catch(err => {
-            console.dir(err)
+            // console.dir(err)
         })
     }, [])
 
@@ -39,25 +40,31 @@ export const EditTask = (task) => {
     }
 
     return (
-        <form>
-            <label htmlFor='title'>Title:</label>
-            <input
-                type='text'
-                name='title'
-                value={taskToEdit.title}
-                onChange={handleChanges}
-            />
+        <NewTaskForm>
+            <div className='sep'>
+                <label className='left' htmlFor='title'>Title:</label>
+                <input
+                    className='right'
+                    type='text'
+                    name='title'
+                    value={taskToEdit.title}
+                    onChange={handleChanges}
+                />
+            </div>
 
-            <label htmlFor='description'>Description:</label>
-            <input
-                type='text'
-                name='description'
-                value={taskToEdit.description}
-                onChange={handleChanges}
-            />
+            <div className='sep'> 
+                <label className='left' htmlFor='description'>Description:</label>
+                <textarea
+                    className='right'
+                    type='text'
+                    name='description'
+                    value={taskToEdit.description}
+                    onChange={handleChanges}
+                />
+            </div>
 
-            <button onClick={handleSubmit}>Update</button>
-        </form>
+            <button className='sub' onClick={handleSubmit}>Update</button>
+        </NewTaskForm>
     )
 }
 

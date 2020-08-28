@@ -1,10 +1,14 @@
 import React from 'react';
-import Spinner from 'react-bootstrap/Spinner'
+import { ScaleLoader } from 'react-spinners';
+import styled from 'styled-components';
 
 export const LoadingView = () => {
     return (
-        <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-        </Spinner>
+        <>
+            <ScaleLoader 
+                size={50} 
+                color={'#ffffff'}
+            />
+        </>
     )
 }

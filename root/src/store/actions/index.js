@@ -8,19 +8,24 @@ export {
     ADD_RES,
     SET_MEMBER_ID,
     SET_EDITING,
+    LOADNG_RES,
     fetchTasks,
     addTask,
     deleteTask,
     setMemberID,
     setEditing,
-    deleteMember
+    deleteMember,
+    setLoading,
+    loadingRes,
+    setErrors
 } from './signInActions'
 
 export {
     FETCH_VOLUNTEERS,
     FETCH_VOLUNTEERS_RES,
     FETCH_VOLUNTEERS_ERR,
-    fetchVolunteers
+    fetchVolunteers,
+    fetchAllMembers
 }from './studentActions'
 
     export const TOGGLE_LANDING = 'TOGGLE_LANDING';
@@ -30,6 +35,8 @@ export {
     export const TOGGLE_ADD = 'TOGGLE_ADD';
     export const CLEAR_STORAGE = 'CLEAR_STORAGE'
     export const CLEAR_STATE = 'CLEAR_STATE';
+    export const TOGGLE_MEMBER_VIEW = 'TOGGLE_MEMBER_VIEW';
+    export const TOGGLE_TASK_VIEW = 'TOGGLE_TASK_VIEW'
 
     export const toggleLanding = () => (dispatch) => {
         dispatch({ type: TOGGLE_LANDING })
@@ -59,4 +66,12 @@ export {
     export const clearState = () => (dispatch) => {
         localStorage.clear()
         dispatch({ type: CLEAR_STATE })
+    }
+
+    export const toggleViewMember = () => (dispatch) => {
+        dispatch({ type: TOGGLE_MEMBER_VIEW })
+    }
+
+    export const toggleViewTasks = () => (dispatch) => {
+        dispatch({ type: TOGGLE_TASK_VIEW })
     }

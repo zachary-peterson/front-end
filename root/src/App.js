@@ -9,7 +9,10 @@ import EditTask from './components/EditTask';
 import { Profile } from './components/Profile';
 import Session from './components/Session'
 import Reviews from './components/Review-page/Reviews'
+import { Footer } from './components/Footer'
+
 import './App.css';
+import { Test } from './components/Test';
 
 function App() {
   return (

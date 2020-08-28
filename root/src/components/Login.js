@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
-import { setAdmin, setStudent, setVolunteer, toggleLanding, setMemberID } from '../store';
+import { setAdmin, setStudent, setVolunteer, toggleLanding, setMemberID, setLoading, loadingRes, setErrors } from '../store';
 import { StyledForm } from './RegisterStudent';
+import { LoadingView } from './LoadingView';
+import { Footer } from './Footer'
 
 const loginInitialFormValues = {
     username: '', 
@@ -24,6 +26,8 @@ export default function Login() {
     const [disabled, setDisabled] = useState(loginInitialDisabled)
     const { push } = useHistory();
     const dispatch = useDispatch();
+    const loading = useSelector(state => state.memberReducer.isLoading)
+    const error = useSelector(state => state.memberReducer.error)
 
     const loginFormSchema = yup.object().shape({
         username: yup
@@ -64,7 +68,8 @@ export default function Login() {
             username: formValues.username.trim(),
             password: formValues.password,
         }
-        console.log(user)
+        dispatch(setLoading())
+        // console.log(user)
         axios.post('https://bwschoolinthecloud.herokuapp.com/api/auth/login', user)
         .then(res => {
             if(res.data.role === 'admin'){
@@ -76,11 +81,12 @@ export default function Login() {
             }
 
             dispatch(setMemberID(res.data.id))
+            dispatch(loadingRes())
 
             return res
         })
         .then(res => {
-            console.dir(res);
+            // console.dir(res);
             
             if (res.status === 200 && res.data) {
                 localStorage.setItem('token', res.data.token)
@@ -88,7 +94,8 @@ export default function Login() {
             }
         })
         .catch(err => {
-            console.dir(err)
+            // console.dir(err)
+            dispatch(setErrors(err))
         })
     }
 
@@ -103,47 +110,59 @@ export default function Login() {
     }
 
     useEffect(() => {
-        console.log(formValues)
+        // console.log(formValues)
         loginFormSchema.isValid(formValues)
             .then(valid => {
-                console.log(valid)
+                // console.log(valid)
                 setDisabled(!valid);
             })
     }, [formValues])
     
     return (
-        <StyledForm className='form container' onSubmit={onSubmit}>
-            <div className='form-group submit'>
-                <h2>Log in Now</h2>
+        <div>
+            {
+                loading ? <LoadingView /> :
+                <StyledForm className='form container' onSubmit={onSubmit}>
+                    <div className='form-group submit'>
+                        <h2>Log in Now</h2>
 
-                <div className='form-group inputs'>
+                        <div className='form-group inputs'>
 
-                    <label>Username:&nbsp;
-                        <input
-                        className='field'
-                        value={formValues.username}
-                        onChange={onInputChange}
-                        name='username'
-                        type='text'/>
-                    </label>
-                    <div className="error" id="username_error">{formErrors.username}</div>
+                        <label>Username:&nbsp;
+                            <input
+                            className='field'
+                            value={formValues.username}
+                            onChange={onInputChange}
+                            name='username'
+                            type='text'/>
+                        </label>
+                        <div id="name_error">{formErrors.username}</div>
 
-                    <label>Password:&nbsp;
-                        <input
-                        className='field'
-                        value={formValues.password}
-                        onChange={onInputChange}
-                        name='password'
-                        type='password'/>
-                    </label>
-                    <div className="error" id="password_error">{formErrors.password}</div>
-    
-                    <div className='select-submit'>
-                        <button id="submit" disabled={disabled}>Enter</button>
-                        <p>Not a User? <span onClick={() => dispatch(toggleLanding())}><b>Sign Up</b></span></p>
-                    </div>
-                </div>    
-            </div>
-        </StyledForm>
+                        <label>Password:&nbsp;
+                            <input
+                            className='field'
+                            value={formValues.password}
+                            onChange={onInputChange}
+                            name='password'
+                            type='password'/>
+                        </label>
+                        <div id="name_error">{formErrors.password}</div>
+                        
+                        { 
+                            error ? <div>INVALID USERNAME/PASSWORD<br/> Please try again...</div> : null
+                        }
+
+
+                        <div className='select-submit'>
+                            <button id="submit" disabled={disabled}>Enter</button>
+                            <p>Not yet a User? <span onClick={() => dispatch(toggleLanding())}>Sign Up</span></p>
+                        </div>
+                    </div>    
+                </div>
+            </StyledForm>
+            }
+
+            <Footer />
+        </div>
     )
 }    
