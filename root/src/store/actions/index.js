@@ -24,7 +24,8 @@ export {
     FETCH_VOLUNTEERS,
     FETCH_VOLUNTEERS_RES,
     FETCH_VOLUNTEERS_ERR,
-    fetchVolunteers
+    fetchVolunteers,
+    fetchAllMembers
 }from './studentActions'
 
     export const TOGGLE_LANDING = 'TOGGLE_LANDING';

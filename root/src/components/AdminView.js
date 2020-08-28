@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTasks, deleteTask, fetchVolunteers, deleteMember, toggleViewMember, toggleViewTasks } from '../store';
+import { fetchTasks, deleteTask, fetchAllMembers, deleteMember, toggleViewMember, toggleViewTasks } from '../store';
 import { LoadingView } from './LoadingView';
 import styled from 'styled-components';
 
@@ -90,7 +90,7 @@ export const AdminView = () => {
 
     useEffect(() => {
         dispatch(fetchTasks())
-        dispatch(fetchVolunteers())
+        dispatch(fetchAllMembers())
     }, [])
 
     
