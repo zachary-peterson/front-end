@@ -9,7 +9,7 @@ export const Dashboard = () => {
     const student = useSelector(state => state.landingReducer.student);
     const volunteer = useSelector(state => state.landingReducer.volunteer);
 
-    console.log(admin);
+    // console.log(admin);
 
     return (
         <>

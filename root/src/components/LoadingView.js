@@ -1,10 +1,22 @@
 import React from 'react';
-import Spinner from 'react-bootstrap/Spinner'
+import { ScaleLoader } from 'react-spinners';
+import { css } from '@emotion/core';
+import styled from 'styled-components';
+
+const overide = css`
+    display: block;
+    margin: 20% auto;
+    border-color: red;
+`;
 
 export const LoadingView = () => {
     return (
-        <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-        </Spinner>
+        <>
+            <ScaleLoader 
+                size={50} 
+                css={overide} 
+                color={'#ffffff'}
+            />
+        </>
     )
 }

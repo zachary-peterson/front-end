@@ -1,13 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Alata&family=Roboto&family=Russo+One&display=swap');
 
 
-body {
+html {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: #1C7293;
+  background-color: #065A82;
+  height: 100%;
+  color: black;
+  max-width: 100%;
+  position: relative;
+  font-size: 80%;
+  overflow-x: hidden;
 }
 
 code {
