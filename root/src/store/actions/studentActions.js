@@ -28,11 +28,12 @@ export const fetchVolunteers = () => (dispatch) => {
 
     axiosWithAuth().get('api/users/filter?role=volunteer')
     .then(res => {
-        console.log(res);
+        // console.log(res);
 
         dispatch({ type: FETCH_VOLUNTEERS_RES, payload: res.data.data })
     })
     .catch(err => {
-        console.dir(err)
+        // console.dir(err)
+        dispatch({ type: FETCH_VOLUNTEERS_ERR, payload: err })
     })
 }
