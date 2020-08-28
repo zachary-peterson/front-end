@@ -30,6 +30,7 @@ const VolDiv = styled.div`
         flex-flow: row wrap;
         margin: 2% auto;
         width: 100%;
+        overflow-x: hidden;
 
         .tasks {
             font-size: 1.5rem;
