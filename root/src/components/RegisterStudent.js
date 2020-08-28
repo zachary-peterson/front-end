@@ -251,9 +251,8 @@ export default function RegisterStudent() {
                     </label>
                     <div className="error" id="role_error">{formErrors.role}</div>
                     
-    {/* want to add link here */}
                     <button id="submit" disabled={disabled}>Join</button>
-                    <p>Already a User? <span onClick={() => dispatch(toggleLanding())}>Sign In</span></p>
+                    <p>Already a User? <span onClick={() => dispatch(toggleLanding())}><b>Sign In</b></span></p>
                     </div>
                 </div>    
             </div>

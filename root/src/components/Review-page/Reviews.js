@@ -1,28 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, Route, Switch } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 
-import ReviewList from './Movies/MovieList';
-import Review from './Movies/Movie';
+import ReviewDetails from './ReviewList';
+import ReviewList from './ReviewList';
 
-const Reviews = () => {
+function Reviews() {
   const [reviewList, setReviewList] = useState([]);
 
   useEffect(() => {
     const getReviews = () => {
       axios
-      .get("https://quotes15.p.rapidapi.com/quotes/random/", {
-        headers: {
-        "content-type":"application/octet-stream",
-        "x-rapidapi-host":"quotes15.p.rapidapi.com",
-        "x-rapidapi-key":"97f4e00602mshd2de2b3ab613c4bp126b61jsn5d75c08263e2",
-        "useQueryString":true
-        },params:{
-        "language_code":"en"
-        }
-    })
+      .get("https://quote-garden.herokuapp.com/api/v2/genre/education?page=1&limit=10")
       .then((response)=>{
-          console.log(response)
+          console.log(response.data.quotes)
+            setReviewList(response.data.quotes)
       })
       .catch((error)=>{
           console.log(error)
@@ -31,18 +24,23 @@ const Reviews = () => {
     getReviews();
   }, []);
 
+  if (!reviewList) {
+    return <div>Loading reviews...</div>;
+  }
 
   return (
-    <div>
+    <Router>
+     <div>
       <Switch>
         <Route path='/'>
           <ReviewList reviews={reviewList}/>
         </Route>
         <Route path = '/reviews/:id'>
-          <Review />
+          <ReviewDetails/>
         </Route>
-      </Switch>
+      </Switch> 
     </div>
+    </Router>
   );
 };
 

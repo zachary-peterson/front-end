@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks, deleteTask, fetchVolunteers, deleteMember } from '../store';
 import { LoadingView } from './LoadingView';
+import Session from './Session'
 
 export const AdminView = () => {
     const tasks = useSelector(state => state.memberReducer.tasks);
@@ -66,6 +67,7 @@ export const AdminView = () => {
 
                 null
             }
+            <Session/>
         </div>
     )
 }
