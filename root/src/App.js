@@ -24,7 +24,6 @@ function App() {
           <Route path='/test' component={Test} />
           <Route exact path='/' component={LandingPage} />
         </Switch>
-      <Footer />
     </div>
   );
 }

@@ -23,7 +23,7 @@ export const EditTask = (task) => {
             setTaskToEdit(res.data)
         })
         .catch(err => {
-            console.dir(err)
+            // console.dir(err)
         })
     }, [])
 

@@ -74,6 +74,7 @@ const VolDiv = styled.div`
             color: 	#e6eaf0;
             font-family: 'Alata', sans-serif;
             font-size: 2.5rem;
+            line-height: 5rem;
         }
         
         .big {

@@ -33,21 +33,21 @@ export const addTask = (copy) => (dispatch) => {
 
     axiosWithAuth().post('api/tasks', copy )
     .then(res => {
-        console.log(res);
+        // console.log(res);
     })
     .catch(err => {
-        console.dir(err);
+        // console.dir(err);
     })
 }
 
 export const editTask = (copy) => (dispatch) => {
     axiosWithAuth().put(`api/tasks/${copy.id}`, copy)
     .then(res => {
-        console.log(res);
-        dispatch(fetchTasks())
+        // console.log(res);
+        // dispatch(fetchTasks())
     })
     .catch(err => {
-        console.dir(err);
+        // console.dir(err);
     })
 }
 
@@ -55,18 +55,18 @@ export const deleteTask = (copy) => (dispatch) => {
 
     axiosWithAuth().delete(`api/tasks/${copy.id}`)
     .then(res => {
-        console.log(res);
+        // console.log(res);
         dispatch(fetchTasks())
     })
     .catch(err => {
-        console.dir(err);
+        // console.dir(err);
     })
 }
 
 export const deleteMember = (copy) => (dispatch) => {
     axiosWithAuth().delete(`api/users/${copy.id}`)
     .then(res => {
-        console.log(res);
+        // console.log(res);
         dispatch(fetchVolunteers())
     })
     .catch(err => {})

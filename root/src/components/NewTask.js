@@ -81,7 +81,7 @@ const NewTask = () => {
         push('/dashboard')
     }
 
-    console.log(newTask)
+    // console.log(newTask)
 
     return (
         <NewTaskForm>

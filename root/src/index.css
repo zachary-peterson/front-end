@@ -5,6 +5,9 @@ html {
   margin: 0;
   background-color: #065A82;
   height: 100%;
+  color: black;
+  max-width: 100%;
+  position: relative;
 }
 
 code {

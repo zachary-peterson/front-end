@@ -156,12 +156,12 @@ export default function RegisterStudent() {
         dispatch(setLoading())
         axios.post('https://bwschoolinthecloud.herokuapp.com/api/auth/register', formValues)
         .then(res => {
-            console.log(res)
+            // console.log(res)
             dispatch(loadingRes())
             dispatch(toggleLanding())
         })
         .catch(err => {
-            console.dir(err)
+            // console.dir(err)
             dispatch(setErrors(err))
         })
     }
@@ -177,10 +177,10 @@ export default function RegisterStudent() {
     }
 
     useEffect(() => {
-        console.log(formValues)
+        // console.log(formValues)
         regStuFormSchema.isValid(formValues)
             .then(valid => {
-                console.log(valid)
+                // console.log(valid)
                 setDisabled(!valid);
             })
     }, [formValues])

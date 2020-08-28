@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import { setAdmin, setStudent, setVolunteer, toggleLanding, setMemberID, setLoading, loadingRes, setErrors } from '../store';
 import { StyledForm } from './RegisterStudent';
 import { LoadingView } from './LoadingView';
+import { Footer } from './Footer'
 
 
 
@@ -70,7 +71,7 @@ export default function Login() {
             password: formValues.password,
         }
         dispatch(setLoading())
-        console.log(user)
+        // console.log(user)
         axios.post('https://bwschoolinthecloud.herokuapp.com/api/auth/login', user)
         .then(res => {
             if(res.data.role === 'admin'){
@@ -87,7 +88,7 @@ export default function Login() {
             return res
         })
         .then(res => {
-            console.dir(res);
+            // console.dir(res);
             
             if (res.status === 200 && res.data) {
                 localStorage.setItem('token', res.data.token)
@@ -95,7 +96,7 @@ export default function Login() {
             }
         })
         .catch(err => {
-            console.dir(err)
+            // console.dir(err)
             dispatch(setErrors(err))
         })
     }
@@ -111,10 +112,10 @@ export default function Login() {
     }
 
     useEffect(() => {
-        console.log(formValues)
+        // console.log(formValues)
         loginFormSchema.isValid(formValues)
             .then(valid => {
-                console.log(valid)
+                // console.log(valid)
                 setDisabled(!valid);
             })
     }, [formValues])
@@ -153,7 +154,7 @@ export default function Login() {
                             error ? <div>INVALID USERNAME/PASSWORD<br/> Please try again...</div> : null
                         }
 
-                        
+
                         <div className='select-submit'>
                             <button id="submit" disabled={disabled}>Enter</button>
                             <p>Not yet a User? <span onClick={() => dispatch(toggleLanding())}>Sign Up</span></p>
@@ -163,7 +164,7 @@ export default function Login() {
             </StyledForm>
             }
 
-            
+            <Footer />
         </div>
     )
 }    

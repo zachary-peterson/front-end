@@ -11,13 +11,14 @@ export const fetchVolunteers = () => (dispatch) => {
 
     axiosWithAuth().get('api/users')
     .then(res => {
-        console.log(res);
+        // console.log(res);
 
         // debugger
 
         dispatch({ type: FETCH_VOLUNTEERS_RES, payload: res.data.data })
     })
     .catch(err => {
-        console.dir(err)
+        // console.dir(err)
+        dispatch({ type: FETCH_VOLUNTEERS_ERR, payload: err.message})
     })
 }

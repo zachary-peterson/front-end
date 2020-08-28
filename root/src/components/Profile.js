@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { axiosWithAuth, setEditing } from '../store';
+import { axiosWithAuth, setEditing, setErrors } from '../store';
 import { NewTaskForm } from './NewTask';
 
 export const Profile = () => {
@@ -15,7 +15,8 @@ export const Profile = () => {
             setMember(res.data.data)
         })
         .catch(err => {
-            console.dir(err)
+            // console.dir(err)
+            dispatch(setErrors(err))
         })
 
     }, [])
@@ -28,11 +29,11 @@ export const Profile = () => {
     const handleSubmit = () => {
         axiosWithAuth().put(`api/users/${memberID}`, member)
         .then(res => {
-            console.log(res)
+            // console.log(res)
             dispatch(setEditing())
         })
         .catch(err => {
-            console.dir(err)
+            dispatch(setErrors(err))
         })
     }
 
@@ -66,8 +67,9 @@ export const Profile = () => {
                         />
                     </div>
 
-                    <h3 className='text'>{member.username}</h3>
-                    <h3 className='text'>{member.email}</h3>
+                    <h3 className='text'>Username: {member.username}</h3>
+                    <h3 className='text'>Password: {member.email}</h3>
+                    <h4><em>Please Note: </em>Username and Password can not be changed...</h4>
 
                     <button className='sub' onClick={handleSubmit} >Submit</button>
                     <button className='sub' onClick={() => dispatch(setEditing())} >Cancel</button>

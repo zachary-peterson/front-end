@@ -92,20 +92,28 @@ export const StudentView = () => {
         <StudentDiv>
             <div className='spacer'><br/></div>
 
-            <div className='desc'>
-                <h2 className='ht'>List of Potential Mentors</h2>
-            </div>
+            { !loading ? 
+                <div className='desc'>
+                    <h2 className='ht'>List of Potential Mentors</h2>
+                </div>
+                
+                :
+
+                null
+            }
 
             {
                 loading ? <div><LoadingView /></div> : null
             }
+
+            
 
             <div className='wrapper'>
                 <div className='left'>
                     <h2 className='text'>5 TRAITS TO LOOK FOR IN A MENTOR</h2>
 
                     <ol>
-                        <li>A mentor who will empower you to make positive choices.</li>
+                        <li>A mentor who will empower, and guide you to make positive choices.</li>
                         <li> A mentor who encourages you to take ownership in your learning.</li>
                         <li>A mentor who helps you develop life skills.</li>
                         <li> A mentor who will help you develop core values.</li>
