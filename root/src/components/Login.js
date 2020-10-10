@@ -157,7 +157,7 @@ export default function Login() {
 
                         <div className='select-submit'>
                             <button id="submit" disabled={disabled}>Enter</button>
-                            <p>Not yet a User? <span onClick={() => dispatch(toggleLanding())}>Sign Up</span></p>
+                            <p>Not yet a User? <span className="switch" onClick={() => dispatch(toggleLanding())}>Sign Up</span></p>
                         </div>
                     </div>    
                 </div>
