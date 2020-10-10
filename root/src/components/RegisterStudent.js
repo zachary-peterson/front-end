@@ -65,7 +65,7 @@ export const StyledForm = styled.form`
         }
     }
     .switch{
-        color: crimson;
+        color: #e53242;
         font-size: 1.25rem;
         font-style: italic;
         font-weight: bold;
