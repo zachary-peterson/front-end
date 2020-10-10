@@ -12,13 +12,14 @@ export const StyledForm = styled.form`
     font-family: 'Arial';
     font-size: 62.5%;
     font-size: 1rem;
-    background-color: lightblue;
+    background-color: #9da7b6;
     display: flex;
     flex-direction: column;
     justify-content:center;
     transition: 0.3s all ease-in-out;
     align-items: center;
     h2{
+        margin-top:2.5%;
         text-align:center;
     }
     .field {
@@ -62,6 +63,19 @@ export const StyledForm = styled.form`
         button{
             padding: 0.25rem 1rem;
             font-size: 1rem;
+        }
+    }
+    .switch{
+        color: #e53242;
+        font-size: 1.25rem;
+        font-style: italic;
+        font-weight: bold;
+        text-decoration: underline;
+
+        &:hover {
+            font-style: normal;
+            font-weight: normal;
+            text-decoration: none;
         }
     }
 `
@@ -265,7 +279,7 @@ export default function RegisterStudent() {
                             
             {/* want to add link here */}
                             <button id="submit" disabled={disabled}>Join</button>
-                            <p>Already a User? <span onClick={() => dispatch(toggleLanding())}>Sign In</span></p>
+                            <p>Already a User? <span className="switch" onClick={() => dispatch(toggleLanding())}>Sign In</span></p>
                             </div>
                         </div>    
                     </div>
