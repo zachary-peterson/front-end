@@ -19,6 +19,7 @@ export const StyledForm = styled.form`
     transition: 0.3s all ease-in-out;
     align-items: center;
     h2{
+        margin-top:2.5%;
         text-align:center;
     }
     .field {
